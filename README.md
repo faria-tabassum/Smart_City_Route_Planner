@@ -50,7 +50,7 @@ smart_city_route_planner/
 │   ├── iddfs.py
 │   └── astar.py
 └── coloring/
-    └── graph_coloring.py       # Greedy graph coloring
+    └── graph_coloring.py      
 ```
 
 You'll see a menu:

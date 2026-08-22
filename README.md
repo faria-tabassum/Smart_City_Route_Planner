@@ -13,17 +13,17 @@ traffic-signal scheduling problem using graph coloring.
 
 ## Features
 
-- 🗺️ **Predefined city map** — 15 locations connected by weighted roads
-- 🔍 **Route finding** with 4 different search algorithms (BFS, DFS,
+-  **Predefined city map** — 15 locations connected by weighted roads
+-  **Route finding** with 4 different search algorithms (BFS, DFS,
   IDDFS, A*)
-- 📊 **Algorithm comparison mode** — runs all 4 algorithms on the same
+-  **Algorithm comparison mode** — runs all 4 algorithms on the same
   source/destination and compares path length, nodes explored, and
   execution time
-- 🚦 **Traffic signal coloring** — assigns the minimum number of signal
+-  **Traffic signal coloring** — assigns the minimum number of signal
   groups so that no two connected intersections share the same group
-- 📈 **Graph visualization** — renders the city map, the found path, and
+-  **Graph visualization** — renders the city map, the found path, and
   the signal grouping using `matplotlib` and `networkx`
-- 🖥️ **Menu-driven CLI** — no GUI dependencies beyond visualization
+-  **Menu-driven CLI** — no GUI dependencies beyond visualization
 
 ## Algorithms & Why They're Used
 

@@ -21,14 +21,14 @@ class SmartCityApp:
         self.root.geometry("1150x700")
 
         self.graph = build_city_graph()
-        self.canvas = None  # holds the embedded matplotlib canvas
+        self.canvas = None  
 
         self._build_layout()
-        self._show_map()  # show the plain city map when the app opens
+        self._show_map()  
 
-    # ---------------- UI LAYOUT ----------------
+   
     def _build_layout(self):
-        # ---- Top control panel ----
+       
         control_frame = tk.Frame(self.root, padx=10, pady=10)
         control_frame.pack(side=tk.TOP, fill=tk.X)
 
@@ -48,7 +48,7 @@ class SmartCityApp:
         )
         dest_dropdown.grid(row=0, column=3, padx=5)
 
-        # ---- Algorithm buttons (built from tk.Label, so color always shows) ----
+        
         button_frame = tk.Frame(self.root, padx=10, pady=5)
         button_frame.pack(side=tk.TOP, fill=tk.X)
 
@@ -64,7 +64,7 @@ class SmartCityApp:
         for text, command, color, hover_color in buttons:
             self._make_color_button(button_frame, text, command, color, hover_color)
 
-        # ---- Main area: graph (left) + output text (right) ----
+        
         main_frame = tk.Frame(self.root)
         main_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
@@ -112,7 +112,6 @@ class SmartCityApp:
         canvas.bind("<Leave>", on_leave)
         return canvas
 
-    # ---------------- HELPERS ----------------
     def _get_source_destination(self):
         start = self.source_var.get()
         goal = self.dest_var.get()
@@ -122,7 +121,6 @@ class SmartCityApp:
         return start, goal
 
     def _render_figure(self, fig):
-        # remove the previous plot before drawing a new one
         if self.canvas is not None:
             self.canvas.get_tk_widget().destroy()
             plt.close("all")
@@ -135,7 +133,6 @@ class SmartCityApp:
         self.output_text.delete("1.0", tk.END)
         self.output_text.insert(tk.END, text)
 
-    # ---------------- BUTTON ACTIONS ----------------
     def run_algorithm(self, name, func):
         start, goal = self._get_source_destination()
         if not start:

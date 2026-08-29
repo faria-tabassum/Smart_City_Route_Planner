@@ -1,96 +1,104 @@
 # Smart City Route Planner
 
-An AI lab project that models a city as a graph and demonstrates classic
-search and graph algorithms — **BFS**, **DFS**, **IDDFS**, **A\* Search**,
-and **Graph Coloring** — through a simple, menu-driven console application
-with graph visualization.
+A Python-based AI project that models a city as a graph and solves two real-world problems: **finding the best route between two locations** and **assigning traffic signal groups** to intersections. Includes both a command-line interface and a full Tkinter GUI.
 
-The city is represented as a weighted graph where locations (hospital,
-mall, school, junctions, etc.) are nodes and roads connecting them are
-edges. The project lets you find routes between any two locations using
-different search strategies, compare their performance, and solve a
-traffic-signal scheduling problem using graph coloring.
+## Overview
+
+The city is represented as a weighted graph — locations (Hospital, Mall, School, Airport, etc.) are nodes, and roads connecting them are weighted edges. The project applies classical AI search algorithms to find routes, and a graph coloring algorithm to assign traffic signal groups so that no two connected intersections are active at the same time.
 
 ## Features
 
--  **Predefined city map** — 15 locations connected by weighted roads
--  **Route finding** with 4 different search algorithms (BFS, DFS,
-  IDDFS, A*)
--  **Algorithm comparison mode** — runs all 4 algorithms on the same
-  source/destination and compares path length, nodes explored, and
-  execution time
--  **Traffic signal coloring** — assigns the minimum number of signal
-  groups so that no two connected intersections share the same group
--  **Graph visualization** — renders the city map, the found path, and
-  the signal grouping using `matplotlib` and `networkx`
--  **Menu-driven CLI** — no GUI dependencies beyond visualization
-
-## Algorithms & Why They're Used
-
-| Algorithm | Role in the project | Concept demonstrated |
-|---|---|---|
-| **BFS** | Finds the route with the fewest road segments (hops) | Uninformed search, shortest path in an unweighted sense |
-| **DFS** | Explores reachable locations via backtracking | Recursion, connectivity |
-| **IDDFS** | Combines BFS's optimality with DFS's low memory usage | Iterative deepening, depth-limited search |
-| **A\*** | Finds the shortest-cost route using real distances + a heuristic | Informed search, heuristic design, priority queues |
-| **Graph Coloring** | Groups intersections into non-conflicting traffic signal phases | Greedy coloring, constraint satisfaction |
+- **Route Finding** using four search algorithms:
+  - BFS (Breadth-First Search)
+  - DFS (Depth-First Search)
+  - IDDFS (Iterative Deepening DFS)
+  - A* Search (with Euclidean distance heuristic)
+- **Compare All** — runs all four algorithms on the same route and shows path length, nodes explored, and execution time side by side
+- **Traffic Signal Grouping** using Greedy Graph Coloring — assigns the minimum number of signal groups so no two adjacent intersections share a group
+- **City Map Visualization** — view the full graph with matplotlib
+- **Two interfaces**:
+  - CLI: menu-driven text interface
+  - GUI: Tkinter interface with dropdowns, algorithm buttons, and an embedded map
 
 ## Project Structure
 
 ```
-smart_city_route_planner/
-├── main.py                     
-├── graph.py                    
-├── data.py                     
-├── utils.py                    
-├── visualization.py          
+smart-city-route-planner/
+│
+├── main.py                  # CLI entry point
+├── gui.py                   # GUI entry point (Tkinter)
+├── graph.py                 # Graph data structure
+├── data.py                  # Hardcoded city map (nodes, edges, coordinates)
+├── utils.py                 # Heuristic function, path reconstruction, timing
+├── visualization.py         # Matplotlib visualization (map, path, coloring)
+│
 ├── search_algorithms/
 │   ├── bfs.py
 │   ├── dfs.py
 │   ├── iddfs.py
 │   └── astar.py
+│
 └── coloring/
-    └── graph_coloring.py      
+    └── graph_coloring.py    # Greedy graph coloring
 ```
 
-You'll see a menu:
+## Requirements
 
-```
-===== SMART CITY ROUTE PLANNER =====
-1. Find Route using BFS
-2. Find Route using DFS
-3. Find Route using IDDFS
-4. Find Route using A* Search
-5. Compare All Algorithms
-6. Traffic Signal Coloring
-7. Show City Map
-8. Exit
+- Python 3.x
+- matplotlib
+
+Install dependencies:
+```bash
+pip install matplotlib
 ```
 
-- Options **1–4**: enter a source and destination location (e.g.
-  `Hospital` → `Airport`) to find a route with that algorithm.
-- Option **5**: enter a source and destination to see a side-by-side
-  comparison of all four algorithms (path length, nodes explored, time
-  taken).
-- Option **6**: computes and displays the minimum number of traffic
-  signal groups needed, then visualizes the grouping.
-- Option **7**: displays the full city map.
+## How to Run
 
-Available location names are printed before each query — enter them
-exactly as shown (e.g. `Junction_1`, `Junction_2`).
+**CLI version:**
+```bash
+python main.py
+```
+
+**GUI version:**
+```bash
+python gui.py
+```
+
+## Usage
+
+1. Select a source and destination location.
+2. Choose an algorithm (BFS / DFS / IDDFS / A*) to find a route, or use **Compare All** to see all four side by side.
+3. Use **Traffic Coloring** to see the minimum signal groups needed for the whole city.
+4. Use **Show Map** to view the full city graph.
 
 ## Sample Output
 
+Example route: Hospital → Airport (via BFS)
 ```
-[BFS]
-Path: Hospital -> Mall -> Junction_1 -> Bank -> Junction_2 -> Airport
-Total Stops: 5
+Path: Hospital -> Mall -> Junction_1 -> Park -> Library -> Airport
+Hops: 5
 Nodes Explored: 9
-Time Taken: 0.0437 ms
+Time: 0.0320 ms
 ```
 
-## Future Improvements
+Example traffic coloring result:
+```
+Minimum Traffic Signal Groups Needed: 3
+Hospital: Group 1
+Mall: Group 2
+...
+```
 
-- Load city data from a JSON/CSV file instead of hardcoding it
-- Add a GUI (e.g. `tkinter`) as an alternative to the CLI
-- Support user-defined custom city maps
+## Algorithms Used
+
+| Algorithm | Guarantees Shortest Path | Notes |
+|-----------|---------------------------|-------|
+| BFS       | Yes                       | Explores level by level |
+| DFS       | No                        | Fast but not optimal |
+| IDDFS     | Yes                       | Optimal but explores more nodes (repeated re-exploration) |
+| A*        | Yes                       | Optimal and explores fewer nodes using a heuristic |
+
+## Notes
+
+- The city graph is currently hardcoded with 15 locations.
+- Greedy Graph Coloring is order-dependent and may not always produce the mathematically minimum number of colors.
